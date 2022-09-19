@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_ame">Brijesh</string>
+
+    <string name="hello_massage">Bonjour tout monde!</string>
+
+    <string name="button_massage">je suis un bouton</string>
+</resources>

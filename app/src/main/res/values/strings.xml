@@ -1,3 +1,8 @@
 <resources>
+    <string name="app_ame">Brijesh</string>
+    <string name="hello_massage">Hello world!</string>
+    <string name="button_massage">I\'M A BUTTON</string>
     <string name="app_name">Brijesh</string>
+
+
 </resources>
