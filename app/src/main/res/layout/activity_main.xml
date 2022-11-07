@@ -1,57 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/myText"
-        android:layout_width="wrap_content"
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_massage"/>
+        android:text="Type Your Password" />
 
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/mybutton"
+        android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:text="@string/button_massage"/>
+        android:baselineAligned="false"
+        android:text="login" />
+
+</LinearLayout>
 
 
-        <EditText
-            android:id="@+id/myedittext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="I'm an EditText"/>
 
 
-        <RadioButton
-            android:id="@+id/radioButton"
-            android:text="This is a radiobutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
 
-        <Switch
-            android:id="@+id/switchButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="This is a switch"/>
 
-        <ImageButton
-            android:id="@+id/image_button"
-            android:layout_width="300dp"
-            android:layout_height="97dp"
-            android:src="@drawable/img" />
 
-        <ImageView
-            android:id="@+id/image_view"
-            android:layout_width="200dp"
-            android:layout_height="97dp"
-            android:src="@drawable/img" />
-    </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
