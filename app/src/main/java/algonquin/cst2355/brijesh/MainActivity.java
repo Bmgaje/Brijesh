@@ -1,107 +1,134 @@
 package algonquin.cst2355.brijesh;
 
+import static android.widget.Toast.LENGTH_SHORT;
 
-
-
-
-
-import android.arch.lifecycle.ViewModelProvider;
 import android.os.Bundle;
-
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-    public class MainActivity extends AppCompatActivity {
-        private ActivityMainBinding variableBinding;
-        private MainViewModel model;
+import androidx.appcompat.app.AppCompatActivity;
 
-        //  Button mybutton = mybutton.findViewById(R.id.mybutton);
-
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-
-
-            model = new ViewModelProvider(this).get(MainViewModel.class);
-
-            variableBinding = ActivityMainBinding.inflate(getLayoutInflater());
-            setContentView(binding.getRoot());
-            TextView textView = variableBinding.textview;
+/**
+ * this is MainActivity class.
+ * @author Brijesh4205
+ * @since 5/11/2022
+ * @version 1.0
+ */
 
 
-            variableBinding.myText.setText(model.editString);
-            variableBinding.mybutton.setOnClickListerner(click ->
-                    {
-                        model.editString.postValue(variableBinding.myedittext.getText().toString());
-                        variableBinding.myText.setText(" your edit text has: " + model.editString);
-                    }
-            );
-            model.editString.observe(this, s -> {
-                        variableBinding.myText.setText("your edit text has " + s);
-                    }
-            );
-            //model.isSelected.
 
 
-            mybutton.setOnClickListener(vw -> mytext.text = "Your edit text has:  $editString");
+
+public class MainActivity extends AppCompatActivity {
+    /* this hold the text at the center of screen*/
+    private TextView tv=null;
+    /* this holds and let the user to change the input*/
+    private EditText et=null;
+    /* this lets the user to click it and change the activity*/
+    private Button btn = null;
+    @Override
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //loads xml file on screen:
+        setContentView(R.layout.activity_main);
+        tv = findViewById(R.id.textView);
+        et = findViewById(R.id.password);
+        btn = findViewById(R.id.loginButton);
+        btn.setOnClickListener(clk -> {
+            String password = et.getText().toString();
+            if(checkPasswordComplexity(password)){
+                tv.setText("Password meets all requirements");
+            }
+            else{
+                tv.setText("you shall not pass");
+            }
+
+            checkPasswordComplexity(password);
+
+        });
+    }
+
+    /**
+     *
+     * @param password The string object that we are checking
+     * @return returns true if all conditions are present and false if not
+     */
+    public boolean checkPasswordComplexity(String password) {
 
 
-            variableBinding.imageButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(MainActivity.this, "Image view height : " + variableBinding.imageView.getHeight() + ". Image view width : " + variableBinding.imageView.getWidth(), Toast.LENGTH_SHORT).show();
-                }
-            });
+        boolean foundUppercase;
+        boolean foundLowercase;
+        boolean foundNumber;
+        boolean foundSpecial;
+        foundUppercase = foundLowercase = foundNumber = foundSpecial = false;
 
+
+        for (int i = 0; !foundLowercase && i < password.length(); i++) {
+            foundLowercase = Character.isLowerCase(password.charAt(i));
         }
 
-        //    private ActivityMainBinding binding;
-        //       @Override
-//        protected void onCreate(Bundle savedInstanceState) {
-//            super.onCreate(savedInstanceState);
-//            setContentView(R.layout.activity_main);
-//        binding = ActivityMainBinding.inflate(getLayoutInflater());
-//        setContentView(binding.getRoot());
-//        TextView textView = binding.textview;
-//
-//        binding.myButton.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                textView.setText("Welcome to Cst3463");
-//                String editString = binding.myedittext.getText().toString();
-//                textView.setText("Your edit text has:  " + editString);
-//
-//            }
-//        });
-//
-//        binding.imageButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(MainActivity.this, "Image view height : "+binding.imageView.getHeight() + ". Image view width : "+binding.imageView.getWidth(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        binding.radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                Toast.makeText(MainActivity.this, "Radio button status is: "+b, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//
-//        binding.switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                if(b==true){
-//                    Toast.makeText(MainActivity.this, "Switch button status is selected.", Toast.LENGTH_SHORT).show();
-//                }else{
-//                    Toast.makeText(MainActivity.this, "Switch button status is not selected.", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
- //       }
-  }
+        for (int i = 0; !foundUppercase && i < password.length(); i++) {
+            foundUppercase = Character.isUpperCase(password.charAt(i));
+        }
+
+        for (int i = 0; !foundNumber && i < password.length(); i++) {
+            foundNumber = Character.isDigit(password.charAt(i));
+        }
+        for (int i = 0; !foundSpecial && i < password.length(); i++) {
+            foundSpecial = isspecialcharacter(password.charAt(i));
+        }
 
 
+/**
+ * toast messages for all the errors
+ * @author Brijesh 4205
+ * @since 5/11/2022
+ * @version 1.0
+ */
+
+        Toast nouppercase = Toast.makeText(getApplicationContext(), "missing an uppercase letter", LENGTH_SHORT);
+        Toast nolowercase = Toast.makeText(getApplicationContext(), "missing a lowercase letter", LENGTH_SHORT);
+        Toast nodigit = Toast.makeText(getApplicationContext(), "missing a digit", LENGTH_SHORT);
+        Toast nospecial = Toast.makeText(getApplicationContext(), "missing special characters", LENGTH_SHORT);
+
+        if (!foundLowercase) {
+            nolowercase.show();
+        }
+        if (!foundUppercase) {
+            nouppercase.show();
+        }
+        if (!foundNumber) {
+            nodigit.show();
+        }
+       if(!foundSpecial){
+            nospecial.show();
+        }
+        return foundLowercase && foundUppercase && foundNumber && foundSpecial;
+
+    }
+
+    private boolean isspecialcharacter(char c) {
+        {
+            switch(c){
+                case'!':
+                case'@':
+                case'#':
+                case'$':
+                case'%':
+                case'^':
+                case'&':
+                case'*':
+                case'?':
+                    return true;
+                default:
+                    return false;
+            }
+        }
+    }
+
+
+}
