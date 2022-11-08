@@ -1,57 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/myText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_massage"/>
 
+        android:id="@+id/EmailHead"
+        android:text="Enter your email address:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:inputType="textEmailAddress"
+        android:id="@+id/emailEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/passwordHead"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Type Your Password" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:id="@+id/password" />
 
     <Button
-        android:id="@+id/mybutton"
-        android:layout_width="wrap_content"
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:text="@string/button_massage"/>
+        android:text="login" />
 
-
-        <EditText
-            android:id="@+id/myedittext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="I'm an EditText"/>
-
-
-        <RadioButton
-            android:id="@+id/radioButton"
-            android:text="This is a radiobutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-
-        <Switch
-            android:id="@+id/switchButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="This is a switch"/>
-
-        <ImageButton
-            android:id="@+id/image_button"
-            android:layout_width="300dp"
-            android:layout_height="97dp"
-            android:src="@drawable/img" />
-
-        <ImageView
-            android:id="@+id/image_view"
-            android:layout_width="200dp"
-            android:layout_height="97dp"
-            android:src="@drawable/img" />
-    </LinearLayout>
-
+</LinearLayout>
