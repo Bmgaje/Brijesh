@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import algonquin.cst2355.brijesh.databinding.ActivityChatRoomBinding;
 import algonquin.cst2355.brijesh.databinding.SentMassageBinding;
 
@@ -23,36 +25,49 @@ public class ChatRoom extends AppCompatActivity {
         binding = ActivityChatRoomBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.recyclerView.setAdapter(new RecyclerView.Adapter<>() {
 
-            @NonNull
-            @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                SentMassageBinding binding = SentMassageBinding.inflate(getLayoutInflater());
-                return null;
-            }
 
-            @Override
-            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
-            }
-
-            @Override
-            public int getItemCount() {
-                return 0;
-            }
-        });
-
-        class MyRowHolder extends RecyclerView.ViewHolder{
+        class MyRowHolder extends RecyclerView.ViewHolder {
 
             TextView messageText;
             TextView timeText;
 
-            public MyRowHolder(@NonNull View itemView){
+            public MyRowHolder(@NonNull View itemView) {
                 super(itemView);
                 messageText = itemView.findViewById(R.id.massage);
                 timeText = itemView.findViewById(R.id.time);
+
+
+                binding.recyclerView.setAdapter(new RecyclerView.Adapter<MyRowHolder>() {
+
+                    ArrayList<ChatMessage> messages = new ArrayList<>();
+
+                    @NonNull
+                    @Override
+                    public MyRowHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {SentMassageBinding.inflate(getLayoutInflater());
+                        return new MyRowHolder( binding.getRoot());
+                    }
+
+                    @Override
+                    public void onBindViewHolder(@NonNull MyRowHolder holder, int position) {
+                        String obj = messages.get(position);
+                        holder.messageText.setText(obj);
+                        holder.timeText.setText("");
+
+                    }
+
+                    @Override
+                    public int getItemCount() {
+                        return messages.size();
+                    }
+
+                    @Override
+                    public int getItemViewType(int position) {
+                        return 0;
+                    }
+                });
+
+
             }
         }
-    }
-}
+}}
