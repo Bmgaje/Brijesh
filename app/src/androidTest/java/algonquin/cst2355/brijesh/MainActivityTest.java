@@ -38,86 +38,20 @@ public class MainActivityTest {
 
     @Test
     public void mainActivityTest() {
-        // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
-        ViewInteraction appCompatEditText = onView(
-                allOf(withId(R.id.password),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                1),
-                        isDisplayed()));
-        appCompatEditText.perform(click());
 
-        ViewInteraction appCompatEditText2 = onView(
-                allOf(withId(R.id.password),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                1),
-                        isDisplayed()));
-        appCompatEditText2.perform(replaceText("11"), closeSoftKeyboard());
 
-        ViewInteraction appCompatEditText3 = onView(
-                allOf(withId(R.id.password), withText("11"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                1),
-                        isDisplayed()));
-        appCompatEditText3.perform(click());
+        ViewInteraction appCompatEditText5 = onView((withId(R.id.password)));
 
-        ViewInteraction appCompatEditText4 = onView(
-                allOf(withId(R.id.password), withText("11"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                1),
-                        isDisplayed()));
-        appCompatEditText4.perform(replaceText("12345"));
+        appCompatEditText5.perform(replaceText("12345"));
 
-        ViewInteraction appCompatEditText5 = onView(
-                allOf(withId(R.id.password), withText("12345"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                1),
-                        isDisplayed()));
-        appCompatEditText5.perform(closeSoftKeyboard());
 
-        ViewInteraction appCompatButton = onView(
-                allOf(withId(R.id.loginButton), withText("login"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                2),
-                        isDisplayed()));
+        ViewInteraction appCompatButton = onView((withId(R.id.loginButton)));
+
         appCompatButton.perform(click());
 
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.textView), withText("you shall not pass"),
-                        withParent(withParent(withId(android.R.id.content))),
-                        isDisplayed()));
+        ViewInteraction textView = onView((withId(R.id.textView)));
         textView.check(matches(withText("you shall not pass")));
-
-        ViewInteraction textView2 = onView(
-                allOf(withId(R.id.textView), withText("you shall not pass"),
-                        withParent(withParent(withId(android.R.id.content))),
-                        isDisplayed()));
-        textView2.check(matches(withText("you shall not pass")));
     }
 
     @Test
