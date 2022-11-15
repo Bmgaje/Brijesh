@@ -225,7 +225,7 @@ public class MainActivityTest {
     @Test
     public void testFindMissingSpecialCharacter() {
         ViewInteraction appCompatEditText5 = onView(
-                allOf(withId(R.id.password), withText("12345"),
+                allOf(withId(R.id.password), withText("Pass123"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
