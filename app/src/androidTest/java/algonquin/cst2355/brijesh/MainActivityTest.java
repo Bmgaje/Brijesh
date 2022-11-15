@@ -120,6 +120,142 @@ public class MainActivityTest {
         textView2.check(matches(withText("you shall not pass")));
     }
 
+    @Test
+    public void testFindMissingUpperCase(){
+        ViewInteraction appCompatEditText5 = onView(
+                allOf(withId(R.id.password), withText("pass123@#$"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                1),
+                        isDisplayed()));
+        appCompatEditText5.perform(closeSoftKeyboard());
+
+        ViewInteraction appCompatButton = onView(
+                allOf(withId(R.id.loginButton), withText("login"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                2),
+                        isDisplayed()));
+        appCompatButton.perform(click());
+
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.textView), withText("you shall not pass"),
+                        withParent(withParent(withId(android.R.id.content))),
+                        isDisplayed()));
+        textView.check(matches(withText("you shall not pass")));
+
+        ViewInteraction textView2 = onView(
+                allOf(withId(R.id.textView), withText("you shall not pass"),
+                        withParent(withParent(withId(android.R.id.content))),
+                        isDisplayed()));
+        textView2.check(matches(withText("you shall not pass")));
+    }
+    @Test
+    public void testFindMissingLowerCase() {
+        ViewInteraction appCompatEditText5 = onView(
+                allOf(withId(R.id.password), withText("PASS123@#$"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                1),
+                        isDisplayed()));
+        appCompatEditText5.perform(closeSoftKeyboard());
+
+        ViewInteraction appCompatButton = onView(
+                allOf(withId(R.id.loginButton), withText("login"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                2),
+                        isDisplayed()));
+        appCompatButton.perform(click());
+
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.textView), withText("you shall not pass"),
+                        withParent(withParent(withId(android.R.id.content))),
+                        isDisplayed()));
+        textView.check(matches(withText("you shall not pass")));
+
+        ViewInteraction textView2 = onView(
+                allOf(withId(R.id.textView), withText("you shall not pass"),
+                        withParent(withParent(withId(android.R.id.content))),
+                        isDisplayed()));
+        textView2.check(matches(withText("you shall not pass")));
+    }
+    @Test
+    public void testFindMissingNumber() {
+        ViewInteraction appCompatEditText5 = onView(
+                allOf(withId(R.id.password), withText("Pass@#$"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                1),
+                        isDisplayed()));
+        appCompatEditText5.perform(closeSoftKeyboard());
+
+        ViewInteraction appCompatButton = onView(
+                allOf(withId(R.id.loginButton), withText("login"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                2),
+                        isDisplayed()));
+        appCompatButton.perform(click());
+
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.textView), withText("you shall not pass"),
+                        withParent(withParent(withId(android.R.id.content))),
+                        isDisplayed()));
+        textView.check(matches(withText("you shall not pass")));
+
+        ViewInteraction textView2 = onView(
+                allOf(withId(R.id.textView), withText("you shall not pass"),
+                        withParent(withParent(withId(android.R.id.content))),
+                        isDisplayed()));
+        textView2.check(matches(withText("you shall not pass")));
+    }
+    @Test
+    public void testFindMissingSpecialCharacter() {
+        ViewInteraction appCompatEditText5 = onView(
+                allOf(withId(R.id.password), withText("12345"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                1),
+                        isDisplayed()));
+        appCompatEditText5.perform(closeSoftKeyboard());
+
+        ViewInteraction appCompatButton = onView(
+                allOf(withId(R.id.loginButton), withText("login"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                2),
+                        isDisplayed()));
+        appCompatButton.perform(click());
+
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.textView), withText("you shall not pass"),
+                        withParent(withParent(withId(android.R.id.content))),
+                        isDisplayed()));
+        textView.check(matches(withText("you shall not pass")));
+
+        ViewInteraction textView2 = onView(
+                allOf(withId(R.id.textView), withText("you shall not pass"),
+                        withParent(withParent(withId(android.R.id.content))),
+                        isDisplayed()));
+        textView2.check(matches(withText("you shall not pass")));
+    }
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
 
