@@ -5,6 +5,8 @@
     <string name="app_name">Brijesh</string>
     <string name="Switch_massag">Spin flag</string>
     <string name="Switch_massage">Spin flag</string>
+    <string name="hello_message">Hello</string>
+    <string name="button_message">Thank you</string>
 
 
 </resources>

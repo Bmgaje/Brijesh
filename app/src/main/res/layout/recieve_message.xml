@@ -24,7 +24,7 @@
     <ImageView
         android:id="@+id/recieveImage"
         android:layout_width="50dp"
-        android:src="@drawable/Receive"
+        android:src="@drawable/flag"
         android:layout_height="50dp"
         tools:ignore="MissingConstraints"
         app:layout_constraintEnd_toEndOf="parent"/>
