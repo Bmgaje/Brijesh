@@ -5,103 +5,166 @@ package algonquin.cst2355.brijesh;
 
 
 
-import android.arch.lifecycle.ViewModelProvider;
+
+
+
+import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
-
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.RequiresApi;
 import android.view.View;
-
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-    public class MainActivity extends AppCompatActivity {
-        private ActivityMainBinding variableBinding;
-        private MainViewModel model;
+import androidx.appcompat.app.AppCompatActivity;
 
-        //  Button mybutton = mybutton.findViewById(R.id.mybutton);
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
-            model = new ViewModelProvider(this).get(MainViewModel.class);
+import algonquin.cst2355.brijesh.databinding.ActivityMainBinding;
 
-            variableBinding = ActivityMainBinding.inflate(getLayoutInflater());
-            setContentView(binding.getRoot());
-            TextView textView = variableBinding.textview;
-
-
-            variableBinding.myText.setText(model.editString);
-            variableBinding.mybutton.setOnClickListerner(click ->
-                    {
-                        model.editString.postValue(variableBinding.myedittext.getText().toString());
-                        variableBinding.myText.setText(" your edit text has: " + model.editString);
-                    }
-            );
-            model.editString.observe(this, s -> {
-                        variableBinding.myText.setText("your edit text has " + s);
-                    }
-            );
-            //model.isSelected.
-
-
-            mybutton.setOnClickListener(vw -> mytext.text = "Your edit text has:  $editString");
+public class MainActivity extends AppCompatActivity {
+    protected String cityName;
+    String stringURL;
+    protected RequestQueue queue;
+    Button getForecast;
+    TextView temp;
+    TextView minTemp, maxTemp, humidity, description;
+    EditText cityTextField;
+    ImageView icon;
+    Bitmap image;
 
 
-            variableBinding.imageButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(MainActivity.this, "Image view height : " + variableBinding.imageView.getHeight() + ". Image view width : " + variableBinding.imageView.getWidth(), Toast.LENGTH_SHORT).show();
-                }
-            });
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        getForecast = findViewById(R.id.getForecast);
+        temp = findViewById(R.id.temp);
+        minTemp = findViewById(R.id.minTemp);
+        maxTemp = findViewById(R.id.maxTemp);
+        description = findViewById(R.id.description);
+        humidity = findViewById(R.id.humidity);
+        cityTextField = findViewById(R.id.cityTextField);
+        icon = findViewById(R.id.icon);
 
-        }
 
-        //    private ActivityMainBinding binding;
-        //       @Override
-//        protected void onCreate(Bundle savedInstanceState) {
-//            super.onCreate(savedInstanceState);
-//            setContentView(R.layout.activity_main);
-//        binding = ActivityMainBinding.inflate(getLayoutInflater());
-//        setContentView(binding.getRoot());
-//        TextView textView = binding.textview;
-//
-//        binding.myButton.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                textView.setText("Welcome to Cst3463");
-//                String editString = binding.myedittext.getText().toString();
-//                textView.setText("Your edit text has:  " + editString);
-//
-//            }
-//        });
-//
-//        binding.imageButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(MainActivity.this, "Image view height : "+binding.imageView.getHeight() + ". Image view width : "+binding.imageView.getWidth(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        binding.radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                Toast.makeText(MainActivity.this, "Radio button status is: "+b, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//
-//        binding.switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                if(b==true){
-//                    Toast.makeText(MainActivity.this, "Switch button status is selected.", Toast.LENGTH_SHORT).show();
-//                }else{
-//                    Toast.makeText(MainActivity.this, "Switch button status is not selected.", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
- //       }
-  }
+        ActivityMainBinding binding;
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        queue = Volley.newRequestQueue(this);
 
+
+        getForecast.setOnClickListener(click -> {
+
+            cityName = cityTextField.getText().toString();
+
+            try {
+                stringURL = "https://api.openweathermap.org/data/2.5/weather?q="
+                        + URLEncoder.encode(cityName, "UTF-8")
+                        + "&appid=7e943c97096a9784391a981c4d878b22&units=metric";
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, stringURL, null,
+                    (response) -> {
+                        try {
+                            JSONObject coord = response.getJSONObject("coord");
+                            JSONArray weatherArray = response.getJSONArray("weather");
+                            JSONObject position0 = weatherArray.getJSONObject(0);
+
+                            String Description = position0.getString("description");
+                            String iconName = position0.getString("icon");
+
+                            String imageUrl = "https://openweathermap.org/img/w/" + iconName + ".png";
+                            JSONObject mainObject = response.getJSONObject("main");
+                            double current = mainObject.getDouble("temp");
+                            double mintemp = mainObject.getDouble("temp_min");
+                            double maxtemp = mainObject.getDouble("temp_max");
+                            int Humidity = mainObject.getInt("humidity");
+                            int vis = response.getInt("visibility");
+                            String name = response.getString("name");
+                            String pathname = getFilesDir() + "/" + iconName + ".png";
+                            File file = new File(pathname);
+
+
+                            if (file.exists()) {
+                                image = BitmapFactory.decodeFile(pathname);
+                            }
+                            ImageRequest imgReq = new ImageRequest(imageUrl, new Response.Listener<Bitmap>() {
+                                @Override
+                                public void onResponse(Bitmap bitmap) {
+                                    try {
+                                        //fOut = openFileOutput(iconName + ".png", Context.MODE_PRIVATE);
+                                        image = bitmap;
+                                        image.compress(Bitmap.CompressFormat.PNG, 100,
+                                                MainActivity.this.openFileOutput(iconName + ".png",
+                                                        Activity.MODE_PRIVATE));
+
+
+                                    } catch (FileNotFoundException e) {
+                                        e.printStackTrace();
+
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                            }, 1024, 1024, ImageView.ScaleType.CENTER, null, (error) -> {
+                            });
+
+                            queue.add(imgReq);
+                            runOnUiThread(() -> {
+                                temp.setText("The current temp is " + current+"Celcius");
+                                temp.setVisibility(View.VISIBLE);
+                                minTemp.setText("The min temperature is " + mintemp+"celcius");
+                                minTemp.setVisibility(View.VISIBLE);
+                                maxTemp.setText("The max temp is " + maxtemp+"celcisus");
+                                maxTemp.setVisibility(View.VISIBLE);
+                                humidity.setText("The humidity is " + Humidity+"%");
+                                humidity.setVisibility(View.VISIBLE);
+                                icon.setImageBitmap(image);
+                                icon.setVisibility(View.VISIBLE);
+                                description.setText(Description);
+                                description.setVisibility(View.VISIBLE);
+                            });
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+
+                        } catch (Throwable e) {
+                            e.printStackTrace();
+                        }
+
+
+                    },
+                    (error) -> {
+                    });
+            queue.add(request);
+
+
+        });
+
+    }
+
+}
 

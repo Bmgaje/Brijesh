@@ -1,57 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/myText"
+        android:id="@+id/textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_massage"/>
+        android:text="Type in the name of the city:"
 
+        tools:ignore="InvalidId" />
+
+    <EditText
+        android:id="@+id/cityTextField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:hint="Type the name here"
+
+        android:minHeight="48dp" />
 
     <Button
-        android:id="@+id/mybutton"
-        android:layout_width="wrap_content"
+        android:id="@+id/getForecast"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:text="@string/button_massage"/>
 
+        android:text="Get Forecast" />
 
-        <EditText
-            android:id="@+id/myedittext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="I'm an EditText"/>
+    <TextView
+        android:id="@+id/temp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Temp goes here "
+        android:visibility="invisible" />
 
+    <TextView
+        android:id="@+id/maxTemp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Max goes here "
+        android:visibility="invisible" />
 
-        <RadioButton
-            android:id="@+id/radioButton"
-            android:text="This is a radiobutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+    <TextView
+        android:id="@+id/minTemp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Min goes here"
+        android:visibility="invisible" />
 
-        <Switch
-            android:id="@+id/switchButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="This is a switch"/>
+    <TextView
+        android:id="@+id/humidity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Humidity goes here"
+        android:visibility="invisible" />
 
-        <ImageButton
-            android:id="@+id/image_button"
-            android:layout_width="300dp"
-            android:layout_height="97dp"
-            android:src="@drawable/img" />
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
 
-        <ImageView
-            android:id="@+id/image_view"
-            android:layout_width="200dp"
-            android:layout_height="97dp"
-            android:src="@drawable/img" />
-    </LinearLayout>
-
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Description goes here"
+        android:visibility="invisible" />
+</LinearLayout>
