@@ -20,7 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -64,7 +64,8 @@ public class ChatRoom extends AppCompatActivity {
         textInput = findViewById(R.id.textInput);
         recieveButton = findViewById(R.id.recieveButton);
         myToolbar = findViewById(R.id.myToolbar);
-       //setSupportActionBar(myToolbar);
+        setSupportActionBar(myToolbar);
+
         //  recyclerView.setLayoutManager(new LinearLayoutManager(this));
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 5);
         gridLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL); // set Horizontal Orientation
